@@ -1,0 +1,1 @@
+ALTER TABLE `nb_department` ADD `display` VARCHAR( 10 ) NOT NULL DEFAULT '1' COMMENT ' «∑Òœ‘ æ';
