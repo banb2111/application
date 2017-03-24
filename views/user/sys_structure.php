@@ -165,8 +165,11 @@
                         </div>
                          <div class="col-sm-1 errorStar">*</div>
                     </div>-->
+					<span style="font-size:16px;color:green">
+					说明：禁用后，不再展示，禁用后不允许重新启用，禁用的部门必须是没有任何成员的部门
+					否则不会禁用成功</span><br><br>
                    <div class="form-group">
-                        <label for="inputPassword3" class="col-sm-3 control-label">当前部门</label>
+                        <label for="inputPassword3" class="col-sm-3 control-label">要禁用的部门</label>
                         <div class="col-sm-8 ">
                             <select class="form-control" name="nonow">
                                 <option value="0" selected="selected">顶级部门</option>
@@ -228,8 +231,10 @@
                         </div>
                          <div class="col-sm-1 errorStar">*</div>
                     </div>-->
+					<span style="font-size:16px;color:green">
+					说明 :此处请手动选择，确认后将会更换所属部门</span><br><br>
                    <div class="form-group">
-                        <label for="inputPassword3" class="col-sm-3 control-label">当前部门</label>
+                        <label for="inputPassword3" class="col-sm-3 control-label">要调整的部门</label>
                         <div class="col-sm-8 ">
                             <select class="form-control" name="nonow">
                                 <option value="0" selected="selected">顶级部门</option>
@@ -240,7 +245,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputPassword3" class="col-sm-3 control-label">上级部门</label>
+                        <label for="inputPassword3" class="col-sm-3 control-label">归属到的上级部门</label>
                         <div class="col-sm-8 ">
                             <select class="form-control" name="no">
                                 <option value="0" selected="selected">顶级部门</option>

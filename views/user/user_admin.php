@@ -74,7 +74,9 @@
                                     事件结果
                                 </div>
                                 <div class="btn-group hidden-xs" id="exampleTableEventsToolbar" role="group">
-                                    <h4 class="example-title">用户管理</h4>
+                                    <h4 class="example-title">用户管理<span style="font-size:16px;color:green">
+					（说明 :此系统没有编辑用户功能，若要更改员工所属部门，请联系技术手动更改）</span></h4>
+													
                                 </div>
                                 <table class="table table-bordered table-hover" id="myTable">
                                     <thead>

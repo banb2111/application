@@ -325,7 +325,7 @@ class Users extends  CI_Controller{
             show_error("",'500',"添加失败，该用户已存在！","users/menulist/addUser");
         }
     }
-    //部门禁用
+    //部门禁用 
     public function department_forbidden(){
 		$sql1="select count(id) from nb_department where display=1 and no=".$_POST["nonow"];
 		//DIE();
