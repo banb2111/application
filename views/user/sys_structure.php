@@ -4,8 +4,12 @@
             <div class="col-sm-12 col-md-8 col-lg-6">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title clearfix">
-                        <h5>上下级关系图</h5>
+                        <h5>上下级关系图</h5>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0):;" data-toggle="modal" data-target="#update">修改部门隶属</a>
                         <div class="w200 ibox-tools" id="exampleTableEventsToolbar">
+                            
+                                
+								
+                            					
                             <button type="button" class="btn btn-outline btn-primary mr1 "data-toggle="modal" data-target="#myModal5">
                                 <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>添加部门
                             </button>
@@ -166,8 +170,9 @@
                          <div class="col-sm-1 errorStar">*</div>
                     </div>-->
 					<span style="font-size:16px;color:green">
-					说明：禁用后，不再展示，禁用后不允许重新启用，禁用的部门必须是没有任何成员的部门
-					否则不会禁用成功</span><br><br>
+					说明：禁用后，添加用户与组织架构将不再展示，仅离职信息中可供查询，
+					禁用后不允许重新启用，禁用的部门必须是没有任何成员，
+					且没有任何下级部门的部门，否则不会禁用成功</span><br><br>
                    <div class="form-group">
                         <label for="inputPassword3" class="col-sm-3 control-label">要禁用的部门</label>
                         <div class="col-sm-8 ">
@@ -233,6 +238,17 @@
                     </div>-->
 					<span style="font-size:16px;color:green">
 					说明 :此处请手动选择，确认后将会更换所属部门</span><br><br>
+					<div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">归属到的上级部门</label>
+                        <div class="col-sm-8 ">
+                            <select class="form-control" name="no">
+                                <option value="0" selected="selected">顶级部门</option>
+                                <?php foreach ($department as $item) {?>
+                                    <option value="<?php echo $item->id?>" selected="selected"><?php echo $item->name?></option>
+                                <?php }?>
+                            </select>
+                        </div>
+                    </div>
                    <div class="form-group">
                         <label for="inputPassword3" class="col-sm-3 control-label">要调整的部门</label>
                         <div class="col-sm-8 ">
@@ -244,17 +260,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="inputPassword3" class="col-sm-3 control-label">归属到的上级部门</label>
-                        <div class="col-sm-8 ">
-                            <select class="form-control" name="no">
-                                <option value="0" selected="selected">顶级部门</option>
-                                <?php foreach ($department as $item) {?>
-                                    <option value="<?php echo $item->id?>" selected="selected"><?php echo $item->name?></option>
-                                <?php }?>
-                            </select>
-                        </div>
-                    </div>
+                    
                      <!--<div class="form-group">
                         <label for="inputPassword3" class="col-sm-3 control-label">岗位描述</label>
                         <div class="col-sm-8 ">

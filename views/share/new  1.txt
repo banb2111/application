@@ -1,0 +1,49 @@
+
+<link rel="stylesheet" type="text/css" href="http://oa.me//static/assets/css/amazeui.css">
+<link rel="stylesheet" type="text/css" href="http://oa.me//static/css/cusMan.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="http://oa.me//static/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="http://oa.me//static/css/style.css">
+<link rel="stylesheet" type="text/css" href="http://oa.me//static/nav/css/style.css">
+<link rel="stylesheet" type="text/css" href="http://oa.me//static/css/animate.min.css">
+<link rel="stylesheet" type="text/css" href="http://oa.me//static/font-awesome-4.5.0/css/font-awesome.css">
+<!-- 转移过来 -->
+<link rel="stylesheet" type="text/css" href="http://oa.me//static/css/userinfo.css">
+<link rel="stylesheet" type="text/css" href="http://oa.me//static/css/style.min862f.css">
+<link rel="stylesheet" type="text/css" href="http://oa.me//static/css/base.css" rel="stylesheet">
+<!-- 提示信息 -->
+<link href="http://oa.me//static/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="http://oa.me//static/js/jquery.min.js"></script>
+<script type="text/javascript" src="http://oa.me//static/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="http://oa.me//static/js/style.js"></script>
+<script type="text/javascript" src="http://oa.me//static/nav/js/index.js"></script>
+
+<!-- 选择时间段 和 图表的显示 -->
+<link rel="stylesheet" type="text/css" media="all" href="http://oa.me//static/daterangepicker/daterangepicker-bs3.css" />
+<script type="text/javascript" src="http://oa.me//static/daterangepicker/moment.js"></script>
+<script type="text/javascript" src="http://oa.me//static/daterangepicker/daterangepicker.js"></script>
+<script type="text/javascript" src="http://oa.me//static/highcharts/js/highcharts.js"></script>
+
+<!-- 添加客户验证 -->
+<script src="http://oa.me/static/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="http://oa.me/static/js/plugins/validate/messages_zh.min.js"></script>
+<script src="http://oa.me/static/js/demo/form-validate-demo.min.js"></script>
+
+<!-- 跳转路径方法 -->
+<script src="http://oa.me//static/js/oa.js"></script>
+<!-- 选择时间插件 -->
+<script src="http://oa.me//static/js/plugins/layer/laydate/laydate.js"></script>
+<!--全选-->
+<script src="http://oa.me//static/js/tableCheckbox.js"></script>
+<!-- 提示信息js -->
+<script src="http://oa.me//static/js/plugins/toastr/toastr.min.js"></script>
+<script src="http://oa.me//static/js/showToastr.js"></script>
+<!-- 用户管理 -->
+<link href="http://oa.me//static/tabcss/reset-min.css" rel="stylesheet">
+<link href="http://oa.me//static/tabcss/progression.css" rel="stylesheet">
+<link href="http://oa.me//static/tabcss/style.css" rel="stylesheet">
+<!-- 组织架构 -->
+<link href="http://oa.me//static/css/plugins/treeview/bootstrap-treeview.css" rel="stylesheet">
+
+
+

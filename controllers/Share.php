@@ -46,6 +46,9 @@ class Share extends CI_Controller{
     public function my_share_customer(){
 
         $status=$_GET['status']?$_GET['status']:"";
+		if($_GET['lei']!=null&&$_GET['lei']!=0){
+			$status=$_GET['lei'];
+		}
         $tag=$_GET['tag'];
         $url = base_url().'index.php/share/my_share_customer?'; //导入分页类URL
         if($status){
@@ -97,8 +100,10 @@ class Share extends CI_Controller{
         if($share_status){
             $url.="&share=".$_GET['share'];
         }
-        $result=$this->customer_model->queryCustomer($this->user_id,"","",$linkType,$linkDay,$sortType,$status,
-            $tag,$type,$sousuo_text,$start_time,$end_time,"","","","",$share_status);
+        $result=$this->customer_model->queryCustomer2($this->user_id,"","",$linkType,$linkDay,$sortType,$status,
+           
+		   $tag,$type,$sousuo_text,$start_time,$end_time,"","","","",$share_status);
+		
         $count=$result->result_array()[0]['num'];
         //分页
         $config=$this->page->page($url,$count);
@@ -110,10 +115,22 @@ class Share extends CI_Controller{
         }
         $this->pagination->initialize($config);      //初始化分类页
 
-        $result=$this->customer_model->queryCustomer($this->user_id,$config['per_page'],$offset,$linkType,
+        $result=$this->customer_model->queryCustomer2($this->user_id,$config['per_page'],$offset,$linkType,
             $linkDay,$sortType,$status, $tag,$type,$sousuo_text,$start_time,$end_time,"","",
             "","",$share_status);
         $customerData= $result->result();
+		
+		//2017
+
+		//echo "<pre>";
+		//var_dump($customerData);die();
+		
+		//$a=$this->db->last_query();
+		//echo "<pre>";
+		//var_dump($a);die();
+		
+		//2017
+		
         $regionResult =$this->region->getList();
         foreach ($customerData as $k => $v) {
             $v->province_no = $regionResult[$v->province_no]['region_name'];

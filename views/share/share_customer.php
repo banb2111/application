@@ -2,6 +2,15 @@
 
     <!-- End Panel Style -->
 
+	
+	
+	
+
+
+
+
+
+
 
 
     <!-- Panel Other -->
@@ -21,6 +30,24 @@
                         <h4 class="example-title">共享客户</h4>
                         <div class="example">
                             <div class="mb10 row" id="exampleTableEventsToolbar" role="group">
+							<?php if($_GET["share"]==2){ ?>
+								
+							
+							<div class="col-sm-6 col-md-5 col-lg-2">
+                                    <div class="form-group has-feedback mb">
+                                      <input type="text" class="form-control" id="text_sousuo2" placeholder="输入共享者" value="<?=$sousuo_text;?>">
+                                    </div>
+                                </div>		
+                                <div class="col-sm-4 col-md-3 col-lg-2">
+                                    <select name="lei" id="lei" class="form-control">
+                                        <option selected="selected" value="0">不限分类</option>
+                                        <option value="1">A类客户</option>
+										<option value="2">B类客户</option>
+										<option value="3">C类客户</option>
+										<option value="4">D类客户</option>
+                                    </select>
+                                </div>
+							<?php } ?>	
                                 <div class="col-sm-4 col-md-3 col-lg-2">
                                     <select name="" id="sousuo_type" class="form-control">
                                         <option <?php if ($type==1){?> selected="selected"<?php }?> value="1">客户名称</option>
@@ -29,12 +56,14 @@
                                         <option <?php if ($type==4){?> selected="selected"<?php }?> value="4">邮箱</option>
                                     </select>
                                 </div>
+                                								
                                 <div class="col-sm-6 col-md-5 col-lg-2">
                                     <div class="form-group has-feedback mb">
                                       <input type="text" class="form-control" id="text_sousuo" placeholder="输入名称,快速查找客户" value="<?=$sousuo_text;?>">
                                       <span style="pointer-events:auto;" class="cp glyphicon glyphicon-search form-control-feedback cp" id="sousuo" aria-hidden="true"></span>
                                     </div>
                                 </div>
+									
                                 <div class="col-sm-4 col-md-4 col-lg-3">
                                     <form class="form-inline">
                                       <div class="form-group">
@@ -44,11 +73,21 @@
                                       </div>
                                     </form>
                                 </div>
+                                <!--<div class="col-sm-4 col-md-3 col-lg-2">
+                                    <select name="lei" id="lei" class="form-control">
+                                        <option selected="selected" value="0">不限分类</option>
+                                        <option value="1">A类客户</option>
+										<option value="2">B类客户</option>
+										<option value="3">C类客户</option>
+										<option value="4">D类客户</option>
+                                    </select>
+                                </div>-->	
+                               							
                                 <div class="col-sm-12 mt5 col-md-3 col-lg-3 col-lg-offset-2 tr">
                                     <span class="pr">
-                                        <a type="button" id="" class="mybtn grey small f12 asc" data-toggle="dropdown">
+                                        <!--<a type="button" id="" class="mybtn grey small f12 asc" data-toggle="dropdown">
                                             <i class="fa fa-sort-alpha-asc" aria-hidden="true"></i>排序
-                                        </a>
+                                        </a>-->
                                         <ul class="dropdown-menu" id="sort_menu">
                                           <li><a  id="sort_lastContactDate" class=""><i class="fa fa-check hide"></i> 最后联系时间</a></li>
                                           <li><a  id="sort_Name"><i class="fa fa-check hide"></i> 客户名称</a></li>
@@ -89,6 +128,9 @@
                                         <?php } ?>
                                         <!-- <th>网址</th> -->
                                         <th>最后一次跟进内容</th>
+										<?php if($_GET["share"]==2){ ?>
+										<th style="width:60px;">共享者</th>
+										<? } ?>
                                     </tr>
                                     </thead>
                                     <?php if(!empty($customer)){ ?>
@@ -119,6 +161,9 @@
                                                 <?php } ?>
                                             </td>
                                             <td class="not" ><?php echo $v->last_follow_content; ?></td>
+											<?php if($_GET["share"]==2){ ?>
+											<th><?php echo $v->ename; ?></th>
+											 <?php } ?>
                                         </tr>
                                     <?php }?>
                                     <?php }else{ ?>
@@ -1645,8 +1690,13 @@
         $("#sousuo").click(function(){
             var type=$("#sousuo_type").val();
             var sousuo_text=$("#text_sousuo").val();
-            var _url= "<?php echo base_url(); ?>index.php/share/my_share_customer?&type="+type+"&will_status=<?=$_GET['will_status'] ?>&sign_status=<?=$_GET['sign_status'] ?>&sousuo_text="+sousuo_text+"&status=<?php echo $_GET['status']; ?>&tag=<?=$_GET['tag'];?>&start_time=<?=$_GET['start_time'];?>&end_time=<?=$_GET['end_time'];?>&linkType=<?=$_GET['linkType'];?>&linkDay=<?=$_GET['linkDay'];?>&sortType=<?=$_GET['sortType']?>&share=<?=$_GET['share']?>";
-            $.loadPage(_url);
+			var sousuo_text2=$("#text_sousuo2").val();
+			//2017-3-27
+			var lei=$("#lei").val();
+            //var _url= "<?php echo base_url(); ?>index.php/share/my_share_customer?&type="+type+"&lei="+lei+"&will_status=<?=$_GET['will_status'] ?>&sign_status=<?=$_GET['sign_status'] ?>&sousuo_text="+sousuo_text+"&status=<?php echo $_GET['status']; ?>&tag=<?=$_GET['tag'];?>&start_time=<?=$_GET['start_time'];?>&end_time=<?=$_GET['end_time'];?>&linkType=<?=$_GET['linkType'];?>&linkDay=<?=$_GET['linkDay'];?>&sortType=<?=$_GET['sortType']?>&share=<?=$_GET['share']?>";
+            var _url= "<?php echo base_url(); ?>index.php/share/my_share_customer?&sousuo_text2="+sousuo_text2+"&lei="+lei+"&type="+type+"&will_status=<?=$_GET['will_status'] ?>&sign_status=<?=$_GET['sign_status'] ?>&sousuo_text="+sousuo_text+"&status=<?php echo $_GET['status']; ?>&tag=<?=$_GET['tag'];?>&start_time=<?=$_GET['start_time'];?>&end_time=<?=$_GET['end_time'];?>&linkType=<?=$_GET['linkType'];?>&linkDay=<?=$_GET['linkDay'];?>&sortType=<?=$_GET['sortType']?>&share=<?=$_GET['share']?>";
+            
+			$.loadPage(_url);
         });
 
         //点击签约
