@@ -10,15 +10,17 @@
                     <!-- Example Events -->
                     <div class="example-wrap">
                         <h4 class="example-title">公海客户</h4>
+						<span style="color:green">(后期可能会随机
+						取出100条，目前一条也没有没办法取，若改动会详细描述使用方式)</span>
                         <div class="example">
                             <div class="alert alert-success hide" id="examplebtTableEventsResult" role="alert">
                                 事件结果
                             </div>
                             <div class="mb10 row" id="exampleTableEventsToolbar" role="group">
                                <div class="col-lg-2 mt5">
-                                   <a type="button" id="jianhui" class="mybtn grey small f12">
+                                   <!--<a type="button" id="jianhui" class="mybtn grey small f12">
                                        <i class="fa fa-lock" aria-hidden="true"></i>全部捡回
-                                   </a>
+                                   </a>-->
                                    <span class="pr">
                                        <a type="button" id="" class="mybtn grey small f12 asc" data-toggle="dropdown">
                                            <i class="fa fa-sort-alpha-asc" aria-hidden="true"></i>排序
@@ -35,31 +37,6 @@
                                    </span>
                                </div>
                                <div class="col-sm-12 col-md-6 col-lg-7">
-							   
-								      <!--
-									   <label for="inputPassword3" class="col-sm-2 control-label">部门</label>
-									   <div class="col-sm-8 " style="width:100px">
-										 <!-- <select class="form-control" name="department_id">
-											 <?php foreach ($department as $item) {?>
-												 <option value="<?php echo $item['id'];?>"><?php echo $item['name'];?></option>
-											 <?php }?>
-										  </select> -->
-										<!--   <select class="form-control help-block m-b-none" name="department_id" aria-invalid="false">
-                                                      <option value="26">济南总部</option>
-                                                      <option value="12">&nbsp;&nbsp;&nbsp;&nbsp;--商务部</option>
-                                                      <option value="11">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--商务一部</option>
-                                                      <option value="13">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--商务二部</option>
-                                                      <option value="15">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--商务三部</option>
-                                                      <option value="22">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--大客户部</option>
-                                                      <option value="24">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--渠道一部</option>
-                                                      <option value="29">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--渠道二部</option>
-                                                      <option value="27">&nbsp;&nbsp;&nbsp;&nbsp;--市场部</option>
-                                                      <option value="23">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--售前客服</option>
-                                                      <option value="28">&nbsp;&nbsp;&nbsp;&nbsp;--行政部</option>
-                                               </select>
-									   </div>-->
-									
-									 
                                    <div class="col-sm-4 col-md-6 col-lg-3">
                                        <select name="" id="sousuo_type" class="form-control">
                                            <option <?php if ($type==1){?> selected="selected"<?php }?> value="1">客户名称</option>
@@ -298,7 +275,7 @@
                            <h1 class="title">
                                <span id="state"></span>
                                <span id="cus_name"></span>
-                               <span class="callIPone cp" id="out_public_customer">捡回</span>
+                               <span class="callIPone cp" id="hx_out_hx_public_customer">捡回</span>
                                <span class="callMail cp hide">发邮件</span>
                            </h1>
                            <div class="tagShow">
@@ -561,7 +538,7 @@
                 chids += checkedInputs_ch[i].value + ",";
             }
 
-            var _url="<?php echo base_url(); ?>index.php/customer/menulist/public_customer?&status="+temp+"&chids="+chids+"&tag=<?php echo $_GET['tag']; ?>&cus_state=<?=$_GET['cus_state'];?>&sortType=<?=$_GET['sortType']?>&type=<?=$_GET['type']?>&sousuo_text=<?=$_GET['sousuo_text']?>&start_time=<?=$_GET['start_time']?>&end_time=<?=$_GET['end_time']?>&isPublic=<?=$_GET['isPublic'];?>";
+            var _url="<?php echo base_url(); ?>index.php/customer/menulist/hx_public_customer?&status="+temp+"&chids="+chids+"&tag=<?php echo $_GET['tag']; ?>&cus_state=<?=$_GET['cus_state'];?>&sortType=<?=$_GET['sortType']?>&type=<?=$_GET['type']?>&sousuo_text=<?=$_GET['sousuo_text']?>&start_time=<?=$_GET['start_time']?>&end_time=<?=$_GET['end_time']?>&isPublic=<?=$_GET['isPublic'];?>";
             $.loadPage(_url);
         });
 
@@ -589,7 +566,7 @@
                 chids += checkedInputs_ch[i].value + ",";
             }
 
-            var _url="<?php echo base_url(); ?>index.php/customer/menulist/public_customer?&status="+temp+"&chids="+chids+"&tag=<?php echo $_GET['tag']; ?>&cus_state=<?=$_GET['cus_state'];?>&sortType=<?=$_GET['sortType']?>&type=<?=$_GET['type']?>&sousuo_text=<?=$_GET['sousuo_text']?>&start_time=<?=$_GET['start_time']?>&end_time=<?=$_GET['end_time']?>&isPublic=<?=$_GET['isPublic'];?>";
+            var _url="<?php echo base_url(); ?>index.php/customer/menulist/hx_public_customer?&status="+temp+"&chids="+chids+"&tag=<?php echo $_GET['tag']; ?>&cus_state=<?=$_GET['cus_state'];?>&sortType=<?=$_GET['sortType']?>&type=<?=$_GET['type']?>&sousuo_text=<?=$_GET['sousuo_text']?>&start_time=<?=$_GET['start_time']?>&end_time=<?=$_GET['end_time']?>&isPublic=<?=$_GET['isPublic'];?>";
             $.loadPage(_url);
         });
 
@@ -623,7 +600,7 @@
             }
 
             noCustomer ()
-            var _url="<?php echo base_url(); ?>index.php/customer/menulist/public_customer?&tag="+temp+"&chids="+chids+"&status=<?php echo $_GET['status']; ?>&cus_state=<?=$_GET['cus_state'];?>&sortType=<?=$_GET['sortType']?>&type=<?=$_GET['type']?>&sousuo_text=<?=$_GET['sousuo_text']?>&start_time=<?=$_GET['start_time']?>&end_time=<?=$_GET['end_time']?>&isPublic=<?=$_GET['isPublic'];?>";
+            var _url="<?php echo base_url(); ?>index.php/customer/menulist/hx_public_customer?&tag="+temp+"&chids="+chids+"&status=<?php echo $_GET['status']; ?>&cus_state=<?=$_GET['cus_state'];?>&sortType=<?=$_GET['sortType']?>&type=<?=$_GET['type']?>&sousuo_text=<?=$_GET['sousuo_text']?>&start_time=<?=$_GET['start_time']?>&end_time=<?=$_GET['end_time']?>&isPublic=<?=$_GET['isPublic'];?>";
             $.loadPage(_url);
         });
         var  tag_val=$("#tag_val").val();
@@ -808,7 +785,7 @@
                 temp += checkedInputs[i].value + ",";
             }
             if(temp){
-                var _url="<?php echo base_url(); ?>index.php/customer/out_public_customer?&cus_id="+temp;
+                var _url="<?php echo base_url(); ?>index.php/customer/hx_out_hx_public_customer?&cus_id="+temp;
                 $.loadPage(_url);
             }else{
                showInfo('请勾选要捡回的客户！',"error");
@@ -816,38 +793,38 @@
         });
         $(".jianhui_class").click(function(){
             var cus_id=$(this).next().val();
-            var _url="<?php echo base_url(); ?>index.php/customer/out_public_customer?&cus_id="+cus_id;
+            var _url="<?php echo base_url(); ?>index.php/customer/hx_out_hx_public_customer?&cus_id="+cus_id;
             $.loadPage(_url);
         })
-        $("#out_public_customer").click(function(){
+        $("#hx_out_hx_public_customer").click(function(){
             var id=$("#custo_id").val();
-            var _url="<?php echo base_url(); ?>index.php/customer/out_public_customer?&cus_id="+id;
+            var _url="<?php echo base_url(); ?>index.php/customer/hx_out_hx_public_customer?&cus_id="+id;
             $.loadPage(_url);
         });
 
         // @zzr edit at 2016-12-19 16:38 按录入时间排序
         $("#sort_addtime").click(function(){
-           var _url="<?php echo base_url(); ?>index.php/customer/menulist/public_customer?&sortType=10&tag=<?=$_GET['tag']?>&linkType=<?=$_GET['linkType'];?>&linkDay=<?=$_GET['linkDay'];?>&status=<?php echo $_GET['status']; ?>&type=<?=$_GET['type'];?>&sousuo_text=<?=$_GET['sousuo_text'];?>&start_time=<?=$_GET['start_time'];?>&end_time=<?=$_GET['end_time'];?>&isPublic=<?=$_GET['isPublic'];?>";
+           var _url="<?php echo base_url(); ?>index.php/customer/menulist/hx_public_customer?&sortType=10&tag=<?=$_GET['tag']?>&linkType=<?=$_GET['linkType'];?>&linkDay=<?=$_GET['linkDay'];?>&status=<?php echo $_GET['status']; ?>&type=<?=$_GET['type'];?>&sousuo_text=<?=$_GET['sousuo_text'];?>&start_time=<?=$_GET['start_time'];?>&end_time=<?=$_GET['end_time'];?>&isPublic=<?=$_GET['isPublic'];?>";
             $.loadPage(_url);
         });
         // @zzr edit at 2016-12-19 16:43 按导入公海时间排序
         $("#sort_topublictime").click(function(){
-           var _url="<?php echo base_url(); ?>index.php/customer/menulist/public_customer?&sortType=11&tag=<?=$_GET['tag']?>&linkType=<?=$_GET['linkType'];?>&linkDay=<?=$_GET['linkDay'];?>&status=<?php echo $_GET['status']; ?>&type=<?=$_GET['type'];?>&sousuo_text=<?=$_GET['sousuo_text'];?>&start_time=<?=$_GET['start_time'];?>&end_time=<?=$_GET['end_time'];?>&isPublic=<?=$_GET['isPublic'];?>";
+           var _url="<?php echo base_url(); ?>index.php/customer/menulist/hx_public_customer?&sortType=11&tag=<?=$_GET['tag']?>&linkType=<?=$_GET['linkType'];?>&linkDay=<?=$_GET['linkDay'];?>&status=<?php echo $_GET['status']; ?>&type=<?=$_GET['type'];?>&sousuo_text=<?=$_GET['sousuo_text'];?>&start_time=<?=$_GET['start_time'];?>&end_time=<?=$_GET['end_time'];?>&isPublic=<?=$_GET['isPublic'];?>";
             $.loadPage(_url);
         });
 
 
 
         $("#sort_lastContactDate").click(function(){
-           var _url="<?php echo base_url(); ?>index.php/customer/menulist/public_customer?&sortType=1&tag=<?=$_GET['tag']?>&linkType=<?=$_GET['linkType'];?>&linkDay=<?=$_GET['linkDay'];?>&status=<?php echo $_GET['status']; ?>&type=<?=$_GET['type'];?>&sousuo_text=<?=$_GET['sousuo_text'];?>&start_time=<?=$_GET['start_time'];?>&end_time=<?=$_GET['end_time'];?>&isPublic=<?=$_GET['isPublic'];?>";
+           var _url="<?php echo base_url(); ?>index.php/customer/menulist/hx_public_customer?&sortType=1&tag=<?=$_GET['tag']?>&linkType=<?=$_GET['linkType'];?>&linkDay=<?=$_GET['linkDay'];?>&status=<?php echo $_GET['status']; ?>&type=<?=$_GET['type'];?>&sousuo_text=<?=$_GET['sousuo_text'];?>&start_time=<?=$_GET['start_time'];?>&end_time=<?=$_GET['end_time'];?>&isPublic=<?=$_GET['isPublic'];?>";
             $.loadPage(_url);
         });
         $("#sort_Name").click(function(){
-            var _url="<?php echo base_url(); ?>index.php/customer/menulist/public_customer?&sortType=2&tag=<?=$_GET['tag']?>&status=<?php echo $_GET['status']; ?>&linkType=<?=$_GET['linkType'];?>&linkDay=<?=$_GET['linkDay'];?>&type=<?=$_GET['type'];?>&sousuo_text=<?=$_GET['sousuo_text'];?>&start_time=<?=$_GET['start_time'];?>&end_time=<?=$_GET['end_time'];?>&isPublic=<?=$_GET['isPublic'];?>";
+            var _url="<?php echo base_url(); ?>index.php/customer/menulist/hx_public_customer?&sortType=2&tag=<?=$_GET['tag']?>&status=<?php echo $_GET['status']; ?>&linkType=<?=$_GET['linkType'];?>&linkDay=<?=$_GET['linkDay'];?>&type=<?=$_GET['type'];?>&sousuo_text=<?=$_GET['sousuo_text'];?>&start_time=<?=$_GET['start_time'];?>&end_time=<?=$_GET['end_time'];?>&isPublic=<?=$_GET['isPublic'];?>";
             $.loadPage(_url);
         })
         $("#sort_CreateDate").click(function(){
-            var _url="<?php echo base_url(); ?>index.php/customer/menulist/public_customer?&sortType=3&tag=<?=$_GET['tag']?>&status=<?php echo $_GET['status']; ?>&linkType=<?=$_GET['linkType'];?>&linkDay=<?=$_GET['linkDay'];?>&type=<?=$_GET['type'];?>&sousuo_text=<?=$_GET['sousuo_text'];?>&start_time=<?=$_GET['start_time'];?>&end_time=<?=$_GET['end_time'];?>&isPublic=<?=$_GET['isPublic'];?>";
+            var _url="<?php echo base_url(); ?>index.php/customer/menulist/hx_public_customer?&sortType=3&tag=<?=$_GET['tag']?>&status=<?php echo $_GET['status']; ?>&linkType=<?=$_GET['linkType'];?>&linkDay=<?=$_GET['linkDay'];?>&type=<?=$_GET['type'];?>&sousuo_text=<?=$_GET['sousuo_text'];?>&start_time=<?=$_GET['start_time'];?>&end_time=<?=$_GET['end_time'];?>&isPublic=<?=$_GET['isPublic'];?>";
             $.loadPage(_url);
         });
         var sortType= $("#sortType").val();
@@ -873,14 +850,14 @@
         $("#sousuo").click(function(){
             var type=$("#sousuo_type").val();
             var sousuo_text=$("#text_sousuo").val();
-            var _url="<?php echo base_url(); ?>index.php/customer/menulist/public_customer?&type="+type+"&sousuo_text="+sousuo_text+"&status=<?php echo $_GET['status']; ?>&cus_state=<?=$_GET['cus_state'];?>&sortType=<?=$_GET['sortType']?>&tag=<?=$_GET['tag'];?>&start_time=<?=$_GET['start_time'];?>&end_time=<?=$_GET['end_time'];?>&isPublic=<?=$_GET['isPublic'];?>";
+            var _url="<?php echo base_url(); ?>index.php/customer/menulist/hx_public_customer?&type="+type+"&sousuo_text="+sousuo_text+"&status=<?php echo $_GET['status']; ?>&cus_state=<?=$_GET['cus_state'];?>&sortType=<?=$_GET['sortType']?>&tag=<?=$_GET['tag'];?>&start_time=<?=$_GET['start_time'];?>&end_time=<?=$_GET['end_time'];?>&isPublic=<?=$_GET['isPublic'];?>";
             $.loadPage(_url);
         });
 // 获取时间段
         $('.applyBtn').on('click', function(event) {
             var daterangepicker_start= $('input[name="daterangepicker_start"]').val();
             var daterangepicker_end= $('input[name="daterangepicker_end"]').val();
-            var _url="<?php echo base_url(); ?>index.php/customer/menulist/public_customer?&start_time="+daterangepicker_start+"&end_time="+daterangepicker_end+"&type=<?=$_GET['type']?>&sousuo_text=<?=$_GET['sousuo_text'];?>&status=<?php echo $_GET['status']; ?>&cus_state=<?=$_GET['cus_state'];?>&sortType=<?=$_GET['sortType']?>&tag=<?=$_GET['tag'];?>&isPublic=<?=$_GET['isPublic'];?>";
+            var _url="<?php echo base_url(); ?>index.php/customer/menulist/hx_public_customer?&start_time="+daterangepicker_start+"&end_time="+daterangepicker_end+"&type=<?=$_GET['type']?>&sousuo_text=<?=$_GET['sousuo_text'];?>&status=<?php echo $_GET['status']; ?>&cus_state=<?=$_GET['cus_state'];?>&sortType=<?=$_GET['sortType']?>&tag=<?=$_GET['tag'];?>&isPublic=<?=$_GET['isPublic'];?>";
             $.loadPage(_url);
         });
     });

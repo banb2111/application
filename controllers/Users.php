@@ -25,7 +25,18 @@ class Users extends  CI_Controller{
             $data['user']=$user;
             //判断是否是主管
             $data['is_zhuguan']=$this->user_model->is_zhuguan($id->id);
-
+			//2017
+			$user_id=$_SESSION['user_id']->id;
+			$query = $this->db->query('select department_no from nb_employee where user_id='.$user_id);
+			//var_dump($query);	
+			//echo $this->db->last_query();
+			$customerData2= $query->result();
+			$department_no=$customerData2[0]->department_no;
+			if($department_no==24||$department_no==29||$department_no==-1){
+				$data['huixiao']=1;
+			}
+			//var_dump($customerData2[0]->department_no);			
+			//die();
             $this->load->view("index",$data);
         }
     }

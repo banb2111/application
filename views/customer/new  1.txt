@@ -1,0 +1,5 @@
+SELECT *, `nb_customer`.`status` as `sta`, `nb_customer`.`name` as `cname`, `nb_customer`.`id` as `cus_id`, `nb_customer`.`address`, `link`.`name` as `linkman_name`, 
+`link`.`mobile` as `linkman_mobile`, (select time from nb_follow_customer where customer_id=nb_customer.id order by time desc limit 1) as time, `cp`.`name` as `linkman_job`,
+ `e`.`name` as `ename` FROM `nb_customer` LEFT JOIN `nb_keyword` `k` ON `nb_customer`.`keyword_id`=`k`.`id` LEFT JOIN `nb_linkman` `link` ON `nb_customer`.`linkman_id`=`link`.`id`
+ LEFT JOIN `nb_custom_position` `cp` ON `cp`.`id`=`link`.`position_id` LEFT JOIN `nb_user` `u` ON `u`.`id`=`nb_customer`.`creator` LEFT JOIN `nb_employee` `e` ON `e`.`user_id`=`u`.`id`
+ORDER BY `create_time` desc LIMIT 10

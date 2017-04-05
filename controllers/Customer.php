@@ -31,8 +31,12 @@ class Customer extends  CI_Controller
 
         if ($product_id == "cusMan") {
             $this->index();
+        } else if ($product_id == "hx_cusMan") {
+          $this->hx_cusMan();			
         } else if ($product_id == "add_customer") {
           $this->customer_add();
+        } else if ($product_id == "hx_add_customer") {
+          $this->hx_customer_add();		  
         }else if ($product_id == "myshare") {
             $this->load->view("myshare");
         }else if ($product_id == "threeRemind") {
@@ -45,6 +49,8 @@ class Customer extends  CI_Controller
              $this->load->view("batch_customer");
         }else if($product_id == "public_customer"){
             $this->public_customer();
+        }else if($product_id == "hx_public_customer"){
+            $this->hx_public_customer();			
         }else if($product_id=="systemSettings"){
            $this->regression_public();
         }else if($product_id=="noassign_customer"){
@@ -161,12 +167,14 @@ class Customer extends  CI_Controller
         $this->pagination->initialize($config);      //初始化分类页
         // @zzr edit at 2016-12-12 15:22 是不是售前客服
         $is_sq = $id->type == 5 ? true : false;
-        $result=$this->customer_model->queryCustomer($id,$config['per_page'],$offset,$linkType,
+		//2017
+        $result=$this->customer_model->queryCustomer_my($id,$config['per_page'],$offset,$linkType,
             $linkDay,$sortType,$status, $tag,$type,$sousuo_text,$start_time,$end_time,$isPublic,$zhuguan,
             $will_status,$sign_status,false,false,$is_sq);
         $customerData= $result->result();
-
-        // p($customerData);
+         //echo $this->db->last_query();
+        // die;
+        //p($customerData);
         // die;
 
         $regionResult =$this->region->getList();
@@ -243,6 +251,196 @@ class Customer extends  CI_Controller
         // 客户来源渠道
         $data['all_channels'] = $this->channel_model->getall_channel_format();
         $this->load->view('customer/cusMan', $data);
+    }
+//2017
+    public function hx_cusMan($repeat_customer)
+    {
+        $id=$_SESSION['user_id'];
+        $status=$_GET['status']?$_GET['status']:"";
+        $tag=$_GET['tag'];
+        $url = base_url().'index.php/customer/menulist/cusMan?'; //导入分页类URL
+        if($status){
+            $url.="&status=".$_GET['status'];
+        }
+        //标签查询
+        if(isset($tag)&&$tag!=""){
+            $url.="&tag=".$_GET['tag'];
+        }
+        $linkType=$_GET['linkType'];
+        if($linkType!=null){
+            $url.="&linkType=".$_GET['linkType'];
+        }
+        //联系状态查询
+        $linkDay=$_GET['linkDay'];
+        if($linkDay!=null){
+            $url.="&linkDay=".$_GET['linkDay'];
+        }
+        //排序
+        $sortType=$_GET['sortType'];
+        if($sortType!=null){
+            $url.="&sortType=".$_GET['sortType'];
+        }
+        //是否是公海
+        $isPublic=$_GET['isPublic'];
+        if($isPublic!=null){
+            $url.="&isPublic=".$_GET['isPublic'];
+        }
+        //按时间段查询 开始时间
+        $start_time=$_GET['start_time'];
+        if($start_time){
+            $url.="&start_time=".$_GET['start_time'];
+        }
+        //结束时间
+        $end_time=$_GET['end_time'];
+        if($end_time){
+            $url.="&end_time=".$_GET['end_time'];
+        }
+        //重点客户
+        $will_status=$_GET['will_status'];
+        if($will_status<>""){
+            $url.="&will_status=".$_GET['will_status'];
+        }
+        //签约客户
+        $sign_status=$_GET['sign_status'];
+        if($sign_status<>""){
+            $url.="&sign_status=".$_GET['sign_status'];
+        }
+        // 搜索类型
+        $type = $this->input->get('type');
+        $sousuo_text = trim($_GET['sousuo_text']);
+        if($type&&$sousuo_text){
+            if($type==1){
+                $url.="&type=".$type."&sousuo_text=".trim($_GET['sousuo_text']);
+            }elseif($type==2){
+                $url.="&type=".$type."&sousuo_text=".trim($_GET['sousuo_text']);
+            }elseif($type==3){
+                $url.="&type=".$type."&sousuo_text=".trim($_GET['sousuo_text']);
+            }elseif($type==4){
+                $url.="&type=".$type."&sousuo_text=".trim($_GET['sousuo_text']);
+            }elseif($type==11){
+                $url.="&type=".$type."&sousuo_text=".trim($_GET['sousuo_text']);
+            }elseif($type==12){
+                $url.="&type=".$type."&sousuo_text=".trim($_GET['sousuo_text']);
+            }else{
+                $url.="&type=".$type."&sousuo_text=".trim($_GET['sousuo_text']);
+            }
+        }elseif(!empty($type)){
+            $url.="&type=".$type;
+        }
+        //判断是否是主管
+        $zhuguan=$_GET['zhuguan'];
+        if($zhuguan!=null){
+            $zhuguan=$this->user_model->is_zhuguan($id->id);
+            $zhuguan=$zhuguan[0]['department_id'];
+            $url.="&zhuguan=".$_GET['zhuguan'];
+        }
+        // @zzr edit at 2016-12-12 15:22 是不是售前客服
+        $is_sq = $id->type == 5 ? true : false;
+        $result=$this->customer_model->queryCustomer_hx($id,"","",$linkType,$linkDay,$sortType,$status,
+            $tag,$type,$sousuo_text,$start_time,$end_time,$isPublic,$zhuguan,$will_status,$sign_status,false,false,$is_sq);
+    
+        if(count($result->result_array()) > 1){
+            $count = count($result->result_array());
+        }else{
+            $count = $result->result_array()[0]['num'];
+        }
+
+
+        //分页
+        $config=$this->page->page($url,$count);
+        $pagenum=$_GET['per_page']?$_GET['per_page']:1;
+        if($pagenum==1){
+            $offset=0;
+        }else{
+            $offset=$config['per_page'] * ($pagenum-1);
+        }
+        $this->pagination->initialize($config);      //初始化分类页
+        // @zzr edit at 2016-12-12 15:22 是不是售前客服
+        $is_sq = $id->type == 5 ? true : false;
+		//2017
+        $result=$this->customer_model->queryCustomer_hx($id,$config['per_page'],$offset,$linkType,
+            $linkDay,$sortType,$status, $tag,$type,$sousuo_text,$start_time,$end_time,$isPublic,$zhuguan,
+            $will_status,$sign_status,false,false,$is_sq);
+        $customerData= $result->result();
+         //echo $this->db->last_query();
+        // die;
+        //p($customerData);
+        // die;
+
+        $regionResult =$this->region->getList();
+        foreach ($customerData as $k => $v) {
+            $v->province_no = $regionResult[$v->province_no]['region_name'];
+            $v->city_no = $regionResult[$v->city_no]['region_name'];
+            $v->county_no = $regionResult[$v->county_no]['region_name'];
+            $data['customer'][$k] = $v;
+            
+            // 获取客户来源渠道信息
+            $channel_str = '' ;
+            if(!empty($v->channel_id)){
+                $channel_ids[] = $v->channel_id;
+                if(!empty($v->channel_id_2)){
+                    $channel_ids[] = $v->channel_id_2;
+                }
+                if(!empty($v->channel_id_3)){
+                    $channel_ids[] = $v->channel_id_3;
+                }
+                $channel_info = $this->db->select('id,channel_name')->where_in('id',$channel_ids)->get('channel')->result_array();
+                
+                foreach($channel_info as $cival){
+                    $channel_str = $channel_str . $cival['channel_name'].'&nbsp;/&nbsp';
+                }
+                $data['customer'][$k]->channel_str = trim($channel_str,'/&nbsp;');
+                unset($channel_ids);
+
+                if($is_sq){
+                    $user_info = $this->db->select('name')->get_where('employee',array('user_id'=>$v->new_user_id))->row_array();
+                    $data['customer'][$k]->new_user_name = $user_info['name'];
+                }
+            }
+
+            // 获取客户最新跟进记录
+            $last_follow = $this->db->select('time,content')->order_by('time DESC')->get_where('follow_customer',array('customer_id'=>$v->customer_id))->row_array();
+            $data['customer'][$k]->last_follow_time = empty($last_follow['time']) ? '' : date('Y-m-d H:i',$last_follow['time']);
+            $data['customer'][$k]->last_follow_content = empty($last_follow['content']) ? '-' : $last_follow['content'];
+        }
+        $data['pages']=$this->pagination->create_links();
+        $data['status']=$status;
+        $data['tag']=$tag;
+        //标签
+        $result=$this->my_tags_model->get_tags();
+        $data['label']=$result->result();
+        //排序
+        $data['sortType']=$_GET['sortType'];
+        //查询条件
+        $data['type']=$type;
+        $data['sousuo_text']=$sousuo_text;
+        if($repeat_customer){
+            $data['repeat_customer']=$repeat_customer;
+        }
+        //重点客户
+        $data['will_status']=$will_status;
+        //签约客户
+        $data['sign_status']=$sign_status;
+        //权限
+        $data['power']=$this->user_model->get_user_power($id->id);
+        //意向客户数量
+        $data['will_count']=$this->customer_model->will_count();
+        //我的客户意向数量
+        $data['my_will_count']=$this->customer_model->my_will_count($id->id);
+        //售前客服显示
+        $this->db->where('id',$id->id);
+        $data['is_custom_service']=$this->db->get('user')->result_array();
+        //所有部门
+        $data['department_list']=$this->department_model->get_department_format();
+
+        // 获取当前页url
+        $_SESSION['cur_url'] = $_SERVER['REQUEST_URI'];
+
+        $data['position']=$this->customer_model->get_position();
+
+        // 客户来源渠道
+        $data['all_channels'] = $this->channel_model->getall_channel_format();
+        $this->load->view('customer/hx_cusMan', $data);
     }
 
 
@@ -1127,12 +1325,15 @@ class Customer extends  CI_Controller
                 $url.="&type=".$_GET['type']."&sousuo_text".trim($_GET['sousuo_text']);
             }
         }
-        if($type == 10 && empty($sousuo_text)){
-            $url.="&type=".$_GET['type']."&sousuo_text".trim($_GET['sousuo_text']);
-        }
-
-        $result=$this->customer_model->queryCustomer(null,null,null,null,null,$sortType,$status, $tag,$type,$sousuo_text,$start_time,$end_time,$isPublic,false,"","",false,false,false,$chids);
-        // @zzr edit at 2016-12-20 14:56
+		//2017
+        //if($type == 10 && empty($sousuo_text)){
+        //    $url.="&type=".$_GET['type']."&sousuo_text".trim($_GET['sousuo_text']);
+        //}
+        //$department=$this->db->get('department')->result();
+		//$department = $this->department_model->get_department_format();
+        $result=$this->customer_model->queryCustomer_sea(null,null,null,null,null,$sortType,$status, $tag,$type,$sousuo_text,$start_time,$end_time,$isPublic,false,"","",false,false,false,$chids);
+        //2017
+		// @zzr edit at 2016-12-20 14:56
         if($sortType == 11){ //用于添加到公海客户降序
             $count = count($result->result_array());
         }else{
@@ -1149,17 +1350,23 @@ class Customer extends  CI_Controller
         $this->pagination->initialize($config);      //初始化分类页
 
         
-        $result=$this->customer_model->queryCustomer("",$config['per_page'],$offset,null,
+        $result=$this->customer_model->queryCustomer_sea("",$config['per_page'],$offset,null,
             null,$sortType,$status, $tag,$type,$sousuo_text,$start_time,$end_time,$isPublic,false,"","",false,false,false,$chids);
         $data['customer']= $result->result();
         $customerData= $result->result();
-        $positionData = $this->customer_model->get_position();
 
+        // echo $this->db->last_query();
+        // die;		
+		
+		
+        $positionData = $this->customer_model->get_position();
+		
         foreach ($positionData as $k => $v) {
             $positionResult[$v->id] = $v;
         }
 
         $regionResult =$this->region->getList();
+		
         foreach ($customerData as $k => $v) {
             $v->province_no = $regionResult[$v->province_no]['region_name'];
             $v->city_no = $regionResult[$v->city_no]['region_name'];
@@ -1224,7 +1431,168 @@ class Customer extends  CI_Controller
 
         $this->load->view('customer/public_customer', $data);
     }
-    //放入公海
+ 
+
+    public function hx_public_customer()
+    {
+		//echo 3333;die();
+        $id=$_SESSION['user_id'];
+        $tag=$this->input->get('tag');
+        $status = $_GET['status'] ? $this->input->get('status') : "";
+        $chids = $_GET['chids'] ? $this->input->get('chids') : "";
+        $url = base_url().'index.php/customer/menulist/public_customer?'; //导入分页类URL
+        //标签查询
+        if(isset($tag)&&$tag!=""){
+            $url.="&tag=".$_GET['tag'];
+        }
+        if($status){
+            $url.="&status=".$_GET['status'];
+        }
+        $linkType=$_GET['linkType'];
+        if($linkType){
+            $url.="&linkType=".$_GET['linkType'];
+        }
+        //排序
+        $sortType=$_GET['sortType'];
+        if($sortType){
+            $url.="&sortType=".$_GET['sortType'];
+        }
+        //是否是公海
+        $isPublic=$_GET['isPublic'];
+        if($isPublic){
+            $url.="&isPublic=".$_GET['isPublic'];
+        }
+        //按时间段查询
+        $start_time=$_GET['start_time'];
+        if($start_time){
+            $url.="&start_time=".$_GET['start_time'];
+        }
+        $end_time=$_GET['end_time'];
+        if($end_time){
+            $url.="&end_time=".$_GET['end_time'];
+        }
+        $type=$_GET['type'];
+        $sousuo_text=trim($_GET['sousuo_text']);
+        if($type&&$sousuo_text){
+            if($type==1){
+                $url.="&type=".$_GET['type']."&sousuo_text=".trim($_GET['sousuo_text']);
+            }elseif($type==2){
+                $url.="&type=".$_GET['type']."&sousuo_text".trim($_GET['sousuo_text']);
+            }elseif($type==3){
+                $url.="&type=".$_GET['type']."&sousuo_text".trim($_GET['sousuo_text']);
+            }elseif($type==4){
+                $url.="&type=".$_GET['type']."&sousuo_text".trim($_GET['sousuo_text']);
+            }elseif($type==10){
+                $url.="&type=".$_GET['type']."&sousuo_text".trim($_GET['sousuo_text']);
+            }
+        }
+        if($type == 10 && empty($sousuo_text)){
+            $url.="&type=".$_GET['type']."&sousuo_text".trim($_GET['sousuo_text']);
+        }
+
+        $result=$this->customer_model->queryCustomer_sea_hx(null,null,null,null,null,$sortType,$status, $tag,$type,$sousuo_text,$start_time,$end_time,$isPublic,false,"","",false,false,false,$chids);
+        // @zzr edit at 2016-12-20 14:56
+        if($sortType == 11){ //用于添加到公海客户降序
+            $count = count($result->result_array());
+        }else{
+            $count = $result->result_array()[0]['num'];
+        }
+        //分页
+        $config=$this->page->page($url,$count);
+        $pagenum=$_GET['per_page']?$_GET['per_page']:1;
+        if($pagenum==1){
+            $offset=0;
+        }else{
+            $offset=$config['per_page'] * ($pagenum-1);
+        }
+        $this->pagination->initialize($config);      //初始化分类页
+
+        
+        $result=$this->customer_model->queryCustomer_sea_hx("",$config['per_page'],$offset,null,
+            null,$sortType,$status, $tag,$type,$sousuo_text,$start_time,$end_time,$isPublic,false,"","",false,false,false,$chids);
+        $data['customer']= $result->result();
+        $customerData= $result->result();
+
+         //echo $this->db->last_query();
+        // die;		
+		
+		
+        $positionData = $this->customer_model->get_position();
+		
+        foreach ($positionData as $k => $v) {
+            $positionResult[$v->id] = $v;
+        }
+
+        $regionResult =$this->region->getList();
+		
+        foreach ($customerData as $k => $v) {
+            $v->province_no = $regionResult[$v->province_no]['region_name'];
+            $v->city_no = $regionResult[$v->city_no]['region_name'];
+            $v->county_no = $regionResult[$v->county_no]['region_name'];
+            $v->linkman_job=$positionResult[$v->position_id]->name;
+            $data['customer'][$k] = $v;
+
+             // @zzr edit at 2016-12-21 16:26
+            // 获取客户来源渠道信息
+            $channel_str = '' ;
+            if(!empty($v->channel_id)){
+                $channel_ids[] = $v->channel_id;
+                if(!empty($v->channel_id_2)){
+                    $channel_ids[] = $v->channel_id_2;
+                }
+                if(!empty($v->channel_id_3)){
+                    $channel_ids[] = $v->channel_id_3;
+                }
+                $channel_info = $this->db->select('id,channel_name')->where_in('id',$channel_ids)->get('channel')->result_array();
+                
+                foreach($channel_info as $cival){
+                    $channel_str = $channel_str . $cival['channel_name'].'&nbsp;/&nbsp';
+                }
+                $data['customer'][$k]->channel_str = trim($channel_str,'/&nbsp;');
+                unset($channel_ids);
+
+                if($is_sq){
+                    $user_info = $this->db->select('name')->get_where('employee',array('user_id'=>$v->new_user_id))->row_array();
+                    $data['customer'][$k]->new_user_name = $user_info['name'];
+                }
+            }
+
+            // 获取客户最新跟进记录
+            $last_follow = $this->db->select('time,content')->order_by('time DESC')->get_where('follow_customer',array('customer_id'=>$v->customer_id))->row_array();
+            $data['customer'][$k]->last_follow_time = empty($last_follow['time']) ? '' : date('Y-m-d H:i',$last_follow['time']);
+            $data['customer'][$k]->last_follow_content = empty($last_follow['content']) ? '-' : $last_follow['content'];
+
+        }
+        //标签
+        $this->db->where('user_id',1);
+        $result=$this->db->get('user_label');
+        $data['label']=$result->result();
+        $data['pages']=$this->pagination->create_links();
+        $data['status'] = $status;
+        $data['chids'] = $chids;
+        $data['tag'] = $tag;
+        //标签
+        $result=$this->my_tags_model->get_tags();
+        $data['label']=$result->result();
+        //排序
+        $data['sortType']=$_GET['sortType'];
+        //查询条件
+        $data['type']=$type;
+        $data['sousuo_text']=$sousuo_text;
+
+        //售前客服显示
+        $this->db->where('id',$id->id);
+        $data['is_custom_service']=$this->db->get('user')->result_array();
+
+        // 客户来源渠道
+        $data['all_channels'] = $this->channel_model->getall_channel_format();
+
+        $this->load->view('customer/hx_public_customer', $data);
+    }
+ 
+
+
+ //放入公海
     public function in_public_customer(){
         // $id=$_GET['cus_id'];
         // @zzr 2016-12-09 21:06
@@ -1239,6 +1607,21 @@ class Customer extends  CI_Controller
             redirect("customer/menulist/cusMan");
         }
     }
+ //放入会销公海
+    public function hx_in_public_customer(){
+        // $id=$_GET['cus_id'];
+        // @zzr 2016-12-09 21:06
+        $id = $this->input->get('cus_id');
+        $user_id=$_SESSION['user_id'];        
+
+        //日志添加
+        $result=$this->log_model->customer_operation_log($id,1,$user_id->id,null);
+        if($result){
+            $this->db->where_in('id',$id);
+            $this->db->update('customer',array("public_state"=>1,'new_user_id'=>0));
+            redirect("customer/menulist/hx_cusMan");
+        }
+    }	
     //捡回到我的客户
     public function out_public_customer(){
     $id=$_GET['cus_id'];
@@ -1278,7 +1661,49 @@ class Customer extends  CI_Controller
         redirect("customer/public_customer?isPublic=1");
     }
 }
-    //弹出框捡入客户
+ 
+    //捡回到我的客户
+    public function hx_out_public_customer(){
+    $id=$_GET['cus_id'];
+    $id=explode(",",$id);
+    $id=array_filter($id);
+    $user_id=$_SESSION['user_id'];
+    if($id){
+        foreach($id as $k=>$v){
+            //查询放入公海的员工
+            $this->db->select('user_id');
+            $this->db->where('customer_id',$v);
+            $this->db->where('change_type',1);
+            $this->db->order_by('add_time desc');
+            $this->db->limit(1);
+            $cus_change=$this->db->get('customer_change')->result_array();
+            if($cus_change[0]['user_id']){
+                //日志添加
+                $result=$this->log_model->customer_operation_log($v,0,$cus_change[0]['user_id'],$user_id->id);
+            }else{
+                $result=$this->log_model->customer_operation_log($v,0,$user_id->id,$user_id->id);
+            }
+            if($result){
+                //修改状态
+                $this->db->where('id',$v);
+                if(intval($v) > 0){
+                    $this->db->update('customer',array("public_state"=>0,'new_user_id'=>$user_id->id,'syschecktime'=>time()));
+
+                    // @zzr edit at 2016-12-15 10:52
+                    // 捡回客户后如果有跟进记录则更新最后一条跟进记录的系统检测时间
+                    $this->db->where('customer_id',$v);
+                    $this->db->order_by('time','DESC');
+                    $this->db->update('follow_customer',array('syschecktime'=>time()));
+                }
+               
+            }
+        }
+        redirect("customer/hx_public_customer?isPublic=1");
+    }
+}
+ 
+
+ //弹出框捡入客户
     public function ajax_out_public(){
             $cus_id = trim($this->input->post('cus_id'));
             $user_id=$_SESSION['user_id'];
@@ -1666,6 +2091,199 @@ class Customer extends  CI_Controller
         }
     }
 
+	
+    //录入会销客户
+    public function hx_customer_add()
+    {
+        //录入人
+        $id=$_SESSION['user_id'];
+
+        if(!$_POST['name']){
+            $province_no=$_POST['province_no'];
+            if($province_no){
+                $this->region->ajax_region($province_no);
+            }
+            $city_no=$_POST['city_no'];
+            if($city_no){
+                $this->region->ajax_county($city_no);
+            }
+            $this->db->where("user_id",$id->id);
+            $this->db->where("is_default",1);
+            $query=$this->db->get("keyword")->result();
+            $data['keyword']=$query[0]->keyword;
+            $data['position']=$this->customer_model->get_position();
+            $data['keyword_id']=$query[0]->id;
+            //售前客服显示
+            $this->db->where('id',$id->id);
+            $data['is_custom_service']=$this->db->get('user')->result_array();
+            //渠道列表
+            // $data['channel_list']= $this->channel_model->get_channel();
+            // @zzr edit at 2016-12-07 14:33 获取顶级客户来源渠道
+            $data['channel_list']= $this->channel_model->get_channel_bypid(0);
+            if($id->type == 5){ // 售前客服
+                $sq_add = $this->channel_model->get_channel_bychname('推广渠道');
+                if(!empty($sq_add['id'])){
+                    $sq_add_id = $sq_add['id'];
+                }else{
+                    $sq_add_id = 21; // 动态获取失败时,该值需要根据所在环境推广渠道分类id来手动设置,
+                }
+            }else{ // 其他角色默认销售录入
+                $sq_add = $this->channel_model->get_channel_bychname('销售录入');
+                if(!empty($sq_add['id'])){
+                    $sq_add_id = $sq_add['id'];
+                }else{
+                    $sq_add_id = 20; // 动态获取失败时,该值需要根据所在环境销售录入分类id来手动设置
+                }
+            }
+
+            $data['channel_list_2'] = $this->channel_model->get_channel_bypid($sq_add_id);
+
+
+            //所有部门
+            $data['department_list']=$this->department_model->get_department_format();
+
+            // 客户来源渠道
+            $data['all_channels'] = $this->channel_model->getall_channel_format(21);
+
+            $this->load->view("customer/hx_add_customer",$data);
+        }else{
+
+            //关键词
+            $key_id = $this->input->post('keyword_id');
+            $linkman_name = $this->input->post('linkman');
+            $qq = $this->input->post('qq');
+            $email = $this->input->post('email');
+            $tel = $this->input->post('tel');
+
+
+            // 插入客户
+            $linkman_id = $this->db->insert('linkman',array("name"=>$linkman_name,'is_default'=>1,'cus_tel'=>$tel,'qq'=>$qq,'email'=>$email,'mobile'=>$_POST['mobile'],'status'=>1,'position_id'=>$_POST['position_id']));
+            if($linkman_id){
+                $linkman_id = $this->db->insert_id();
+            }
+
+            $data=array(
+                'keyword_id'=>$key_id,
+                'no'=>rand(0000,9999),
+                'name'      =>$this->input->post('name'),
+                'corporate_name'=>$this->input->post('corporate_name'),//法人
+                'creator'=>$id->id,//录入人
+                'create_time'=>time(), //录入时间
+                'linkman_id'=>$linkman_id,
+                'province_no'=>$this->input->post('province_no'),
+                'bd_ranking'=>$this->input->post('bd_ranking'),
+                'city_no'=>$this->input->post('city_no'),
+                'county_no'=>$this->input->post('county_no'),
+                'status'=>-1,//客户状态
+                'cus_content'=>$this->input->post('content')
+            );
+            //售前客服-before
+            // if($_POST['channel_id']!=0||$_POST['extend_xml']!=null){
+            //     $data['channel_id']=$_POST['channel_id'];
+            //     $data['extend_status']=$_POST['extend_xml'];
+            //     $data['custom_service']=$id->id;
+            // }
+
+            // @zzr edit at 2016-12-07 14:06
+            // user type=5 为售前客服标识
+            if($id->type == 5){
+                // $data['extend_status']  = $this->input->post('extend_xml');
+                $data['extend_status']  = 1; // 是否来自推广渠道标识
+                $data['custom_service'] = $id->id;
+                $data['new_user_id']    = $id->id; // 售前客服录入的客户所有人默认为售前客服本身
+            }elseif($id->type != 5 && $this->input->post('channel_id') == 21){ // 21为推广渠道编号，当前环境数据录不对应需手动设置
+                $custom_service = $this->db->get_where('division_manager',array('department_id'=>23))->row_array(); // 23为售前客服用户类别编号,当前环境数据录不对应需手动设置
+                if(!empty($custom_service['user_id'])){
+                    $data['custom_service'] = $custom_service['user_id'];
+                }else{ // 没有设置售前客服主管
+                    $data['custom_service'] = 0;
+                }
+                $data['extend_status']  = 1; // 是否来自推广渠道标识
+                $data['new_user_id']    = $id->id; 
+            }else{ // 其他默认为销售录入
+                $data['extend_status']  = 0; // 是否来自推广渠道标识
+                $data['custom_service'] = 0;
+                $data['new_user_id']    = $id->id;
+            }
+            // 新增客户来源渠道分类
+            $data['channel_id']     = $this->input->post('channel_id'); // 前一版本已存在,先保留
+            $data['channel_id_1']   = empty($_POST['channel_id']) ? 0 : $this->input->post('channel_id');
+            $data['channel_id_2']   = empty($_POST['channel_id_2']) ? 0 : $this->input->post('channel_id_2');
+            $data['channel_id_3']   = empty($_POST['channel_id_3']) ? 0 : $this->input->post('channel_id_3');
+
+            $new_user_id_val = isset($_POST['new_user_id_val']) ? trim($this->input->post('new_user_id_val')) : '';
+            if(!empty($new_user_id_val)){
+                $data['new_user_id'] = $new_user_id_val;
+            }
+
+            // 客户预算
+            $budget = isset($_POST['budget']) ? trim($this->input->post('budget')) : 0;
+            if(!empty($budget)){
+                $data['budget'] = $budget;   
+            }
+            
+
+            $this->db->where('user.id',$id->id);
+            $this->db->join('user',"user.id=employee.user_id");
+            $user_name=$this->db->get('employee')->result_array();
+            $data['department_no']=$user_name[0]['department_no'];
+			//2017
+			$data['is_huixiao']="1";
+            $result=$this->db->insert("customer",$data);
+
+            $customer_id=$this->db->insert_id();
+            if($result){
+
+                // @zzr edit at 2016-12-21 11:41 售前客户录入客户时进行了指派
+                if(!empty($new_user_id_val) && $id->type == 5){
+
+                    //添加变更日志
+                    $user_id = $new_user_id_val; // 指定人
+                    $cus_id = $customer_id; // 客户编号
+                    //客户
+                    $this->db->where("id",$cus_id);
+                    $cus = $this->db->get("customer")->result_array();
+
+                    //主客服
+                    $this->db->where("user.id",$id->id);
+                    $this->db->join("employee e" ," e.user_id=user.id");
+                    $custom_service=$this->db->get("user")->result_array();
+
+                    //指定人
+                    $this->db->where("user.id",$user_id);
+                    $this->db->join("employee e" ,"e.user_id=user.id");
+                    $sale_user=$this->db->get("user")->result_array();
+
+                    //插入日志
+                    $data=array(
+                        "customer_id"=>$cus_id,
+                        "add_time"=>time(),
+                        "user_id"=>$_SESSION['user_id']->id,
+                        "change_type"=>2,
+                        "change_text"=>"".$custom_service[0]['name']."客服把".$cus[0]['name']."客户指派给".$sale_user[0]['name']."销售",
+                        "cus_from" =>$custom_service[0]['name'],
+                        "cus_to" =>$sale_user[0]['name'],
+                    );
+
+                    $result=$this->db->insert("customer_change",$data);
+                    if($result){
+                        $this->db->where("id",$cus_id);
+                        $this->db->update("customer",array("new_user_id"=>$user_id));
+                    }
+                }
+
+                $this->db->where('id',$linkman_id);
+                $linkman=$this->db->update('linkman',array('customer_id'=>$customer_id));
+                if($linkman){
+                    // 清除所有缓存文件
+                    $this->db->cache_delete_all();
+                    redirect("customer/menulist/hx_add_customer");
+                }
+            }
+        }
+    }
+	
+	
 
     /**
      * [get_ch_channels 获取下级来源分类]

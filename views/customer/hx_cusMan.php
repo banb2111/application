@@ -14,11 +14,11 @@
                 <!--当前用户-->
                 <input type="hidden" id="user" value="<?=$_SESSION['user_id']->id;?>">
                 <div class="col-sm-12 col-lg-10 col-md-10">
-                    <!-- Example Events -->
+                    <!-- Example Events style="display:none"-->
                     <div class="example-wrap">
-                        <h4 class="example-title">我的客户</h4>
+                        <h4 class="example-title">我的会销客户</h4>
                         <div class="example">
-                            <div class="mb10 row" id="exampleTableEventsToolbar" role="group">
+                            <div class="mb10 row" id="exampleTableEventsToolbar" role="group" >
                                 <div class="col-sm-4 col-md-3 col-lg-2">
                                     <select name="" id="sousuo_type" class="form-control">
                                         <option <?php if ($type==1){?> selected="selected"<?php }?> value="1">客户名称</option>
@@ -62,11 +62,11 @@
                                     </form>
                                 </div>
                                 <div class="col-sm-12 mt5 col-md-3 col-lg-3 col-lg-offset-2 tr" style="margin:0px;float:right">
-                                    <a type="button" class="pr mybtn grey small f12"data-toggle="modal" data-target="#inport">
+                                    <!--<a type="button" class="pr mybtn grey small f12"data-toggle="modal" data-target="#inport">
                                         <form action="/customer/excel_in" method="post" class="hide" enctype="multipart/form-data">
                                         </form>
                                         <i class="glyphicon glyphicon-import" aria-hidden="true"></i>导入
-                                    </a>
+                                    </a>-->
                                     <span class="pr">
                                         <a type="button" id="" class="mybtn grey small f12 asc" data-toggle="dropdown">
                                             <i class="fa fa-sort-alpha-asc" aria-hidden="true"></i>排序
@@ -77,14 +77,14 @@
                                           <li><a  id="sort_CreateDate"><i class="fa fa-check hide"></i> 创建时间</a></li>
                                         </ul>
                                     </span>
-                                    <span class="pr more">
+                                    <!--<span class="pr more">
                                         <a href="#" title="更多操作" data-toggle="dropdown" class="button grey small"><i class="fa fa-chevron-down"></i> 更多操作</a>
                                         <ul class="dropdown-menu" id="operationMenu">
                                           <li><a id="add_reply_link" message="请选择需要转移的客户" href="#setshare-popup" title="将选择的客户转移给其他同事" class="popup-link"><i class="fa fa-mail-reply-all"></i> 转移客户</a></li>
                                           <li><a id="add_share_link" message="请选择需要共享的客户" href="#setshare-popup" title="将选择的客户共享给其他同事" class="popup-link"><i class="fa fa-share-alt"></i> 共享客户</a></li>
                                           <li><a id="remove_share_link" style="display: none;" message="请选择需要取消共享的客户" href="#removeshare-popup" title="取消客户信息的共享" class="popup-link"><i class="fa fa-share-alt"></i> 取消共享</a></li>
                                         </ul>
-                                    </span>
+                                    </span>-->
                                 </div>
                             </div>
 
@@ -96,7 +96,7 @@
                                             <input  type="checkbox" class="all_xuan">
                                         </th>
                                         <th>公司名称</th>
-                                        <th>重点客户</th>
+                                        <!--<th>重点客户</th>-->
                                         <th>联系人</th>
                                         <th>联系电话</th>
                                         <th>职位</th>
@@ -126,11 +126,12 @@
                                                         <?php endif ?>
                                                     </p>
                                             </td>
-                                           <?php if($v->will_status==1){ ?>
+                                           <!--<?php if($v->will_status==1){ ?>
                                             <td class="tc"><button class="will btn btn-primary  btn-xs br">是</button><input type="hidden" value="<?=$v->cus_id ?>" ></td>
                                             <?php }elseif($v->will_status==0){ ?>
                                             <td class="tc"><button class="will btn btn-primary btn-default btn-xs br">否</button><input type="hidden" value="<?=$v->cus_id ?>" ></td>
                                             <?php } ?>
+											-->
                                             <td class="not" ><?php echo $v->linkman_name; ?></td>
                                             <td class="not" ><?php echo $v->linkman_mobile;?> <?php if(!empty($v->cus_tel)) echo '/<br/>'.$v->cus_tel;?></td>
                                             <td class="not" ><?php echo $v->linkman_job;?></td>
@@ -180,7 +181,7 @@
                         </div>
                     </div>    
                 </div>
-                <div class="col-sm-6 col-lg-1 col-md-1">
+                <!--<div class="col-sm-6 col-lg-1 col-md-1">
                      <div class="cusMtt">
                         <h4 class="">重点客户</h4>
                         <div class="mt5 zhongdian">
@@ -190,7 +191,7 @@
                             </span>
                         </div>
                     </div>    
-                </div>
+                </div>-->
                 <div class="col-sm-6 col-lg-2 col-md-2">
                     <input type="hidden" id="cusValue" value="<?php echo $status; ?>">
                     <div class="cusMt">
@@ -1439,7 +1440,7 @@
             for(var i = 0; i < checkedInputs.size(); i++) {
                 temp += checkedInputs[i].value + ",";
             }
-            var _url="<?php echo base_url(); ?>index.php/customer/menulist/cusMan?&status="+temp+"&will_status=<?=$_GET['will_status'] ?>&sign_status=<?=$_GET['sign_status'] ?>&tag=<?php echo $_GET['tag']; ?>&linkType=<?=$_GET['linkType'];?>&linkDay=<?=$_GET['linkDay'];?>&sortType=<?=$_GET['sortType']?>&type=<?=$_GET['type']?>&sousuo_text=<?=$_GET['sousuo_text']?>&start_time=<?=$_GET['start_time']?>&end_time=<?=$_GET['end_time']?>&isPublic=<?=$_GET['isPublic'];?>&zhuguan=<?=$_GET['zhuguan']?>";
+            var _url="<?php echo base_url(); ?>index.php/customer/menulist/hx_cusMan?&status="+temp+"&will_status=<?=$_GET['will_status'] ?>&sign_status=<?=$_GET['sign_status'] ?>&tag=<?php echo $_GET['tag']; ?>&linkType=<?=$_GET['linkType'];?>&linkDay=<?=$_GET['linkDay'];?>&sortType=<?=$_GET['sortType']?>&type=<?=$_GET['type']?>&sousuo_text=<?=$_GET['sousuo_text']?>&start_time=<?=$_GET['start_time']?>&end_time=<?=$_GET['end_time']?>&isPublic=<?=$_GET['isPublic'];?>&zhuguan=<?=$_GET['zhuguan']?>";
             $.loadPage(_url);
         });
         
@@ -1453,7 +1454,7 @@
             for(var i = 0; i < checkedInputs.size(); i++) {
                 temp += checkedInputs[i].value + ",";
             }
-            var _url="<?php echo base_url(); ?>index.php/customer/menulist/cusMan?&sign_status="+temp+"&will_status=<?= $_GET['will_status'] ?>&status=<?=$_GET['status'] ?>&tag=<?php echo $_GET['tag']; ?>&linkType=<?=$_GET['linkType'];?>&linkDay=<?=$_GET['linkDay'];?>&sortType=<?=$_GET['sortType']?>&type=<?=$_GET['type']?>&sousuo_text=<?=$_GET['sousuo_text']?>&start_time=<?=$_GET['start_time']?>&end_time=<?=$_GET['end_time']?>&isPublic=<?=$_GET['isPublic'];?>&zhuguan=<?=$_GET['zhuguan']?>";
+            var _url="<?php echo base_url(); ?>index.php/customer/menulist/hx_cusMan?&sign_status="+temp+"&will_status=<?= $_GET['will_status'] ?>&status=<?=$_GET['status'] ?>&tag=<?php echo $_GET['tag']; ?>&linkType=<?=$_GET['linkType'];?>&linkDay=<?=$_GET['linkDay'];?>&sortType=<?=$_GET['sortType']?>&type=<?=$_GET['type']?>&sousuo_text=<?=$_GET['sousuo_text']?>&start_time=<?=$_GET['start_time']?>&end_time=<?=$_GET['end_time']?>&isPublic=<?=$_GET['isPublic'];?>&zhuguan=<?=$_GET['zhuguan']?>";
             // alert(_url);
             $.loadPage(_url);
         });
@@ -1485,7 +1486,7 @@
                 temp += $(checkI[i]).next().val() + ",";
             }
             noCustomer ();
-            var _url="<?php echo base_url(); ?>index.php/customer/menulist/cusMan?&tag="+temp+"&will_status=<?=$_GET['will_status']; ?>&sign_status=<?=$_GET['sign_status'] ?>&status=<?php echo $_GET['status']; ?>&linkType=<?=$_GET['linkType'];?>&linkDay=<?=$_GET['linkDay'];?>&sortType=<?=$_GET['sortType']?>&type=<?=$_GET['type']?>&sousuo_text=<?=$_GET['sousuo_text']?>&start_time=<?=$_GET['start_time']?>&end_time=<?=$_GET['end_time']?>&isPublic=<?=$_GET['isPublic'];?>&zhuguan=<?=$_GET['zhuguan']?>";
+            var _url="<?php echo base_url(); ?>index.php/customer/menulist/hx_cusMan?&tag="+temp+"&will_status=<?=$_GET['will_status']; ?>&sign_status=<?=$_GET['sign_status'] ?>&status=<?php echo $_GET['status']; ?>&linkType=<?=$_GET['linkType'];?>&linkDay=<?=$_GET['linkDay'];?>&sortType=<?=$_GET['sortType']?>&type=<?=$_GET['type']?>&sousuo_text=<?=$_GET['sousuo_text']?>&start_time=<?=$_GET['start_time']?>&end_time=<?=$_GET['end_time']?>&isPublic=<?=$_GET['isPublic'];?>&zhuguan=<?=$_GET['zhuguan']?>";
             $.loadPage(_url);
         });
         var  tag_val=$("#tag_val").val();
@@ -1724,15 +1725,15 @@
             }
         });
         $("#sort_lastContactDate").click(function(){
-            var _url="<?php echo base_url(); ?>index.php/customer/menulist/cusMan?&sortType=1&will_status=<?=$_GET['will_status'] ?>&sign_status=<?=$_GET['sign_status'] ?>&tag=<?=$_GET['tag']?>&linkType=<?=$_GET['linkType'];?>&linkDay=<?=$_GET['linkDay'];?>&status=<?php echo $_GET['status']; ?>&type=<?=$_GET['type'];?>&sousuo_text=<?=$_GET['sousuo_text'];?>&start_time=<?=$_GET['start_time'];?>&end_time=<?=$_GET['end_time'];?>&isPublic=<?=$_GET['isPublic'];?>&zhuguan=<?=$_GET['zhuguan']?>";
+            var _url="<?php echo base_url(); ?>index.php/customer/menulist/hx_cusMan?&sortType=1&will_status=<?=$_GET['will_status'] ?>&sign_status=<?=$_GET['sign_status'] ?>&tag=<?=$_GET['tag']?>&linkType=<?=$_GET['linkType'];?>&linkDay=<?=$_GET['linkDay'];?>&status=<?php echo $_GET['status']; ?>&type=<?=$_GET['type'];?>&sousuo_text=<?=$_GET['sousuo_text'];?>&start_time=<?=$_GET['start_time'];?>&end_time=<?=$_GET['end_time'];?>&isPublic=<?=$_GET['isPublic'];?>&zhuguan=<?=$_GET['zhuguan']?>";
             $.loadPage(_url);
         });
         $("#sort_Name").click(function(){
-            var _url="<?php echo base_url(); ?>index.php/customer/menulist/cusMan?&sortType=2&will_status=<?=$_GET['will_status'] ?>&sign_status=<?=$_GET['sign_status'] ?>&tag=<?=$_GET['tag']?>&status=<?php echo $_GET['status']; ?>&linkType=<?=$_GET['linkType'];?>&linkDay=<?=$_GET['linkDay'];?>&type=<?=$_GET['type'];?>&sousuo_text=<?=$_GET['sousuo_text'];?>&start_time=<?=$_GET['start_time'];?>&end_time=<?=$_GET['end_time'];?>&isPublic=<?=$_GET['isPublic'];?>&zhuguan=<?=$_GET['zhuguan']?>";
+            var _url="<?php echo base_url(); ?>index.php/customer/menulist/hx_cusMan?&sortType=2&will_status=<?=$_GET['will_status'] ?>&sign_status=<?=$_GET['sign_status'] ?>&tag=<?=$_GET['tag']?>&status=<?php echo $_GET['status']; ?>&linkType=<?=$_GET['linkType'];?>&linkDay=<?=$_GET['linkDay'];?>&type=<?=$_GET['type'];?>&sousuo_text=<?=$_GET['sousuo_text'];?>&start_time=<?=$_GET['start_time'];?>&end_time=<?=$_GET['end_time'];?>&isPublic=<?=$_GET['isPublic'];?>&zhuguan=<?=$_GET['zhuguan']?>";
             $.loadPage(_url);
         })
         $("#sort_CreateDate").click(function(){
-            var _url="<?php echo base_url(); ?>index.php/customer/menulist/cusMan?&sortType=3&will_status=<?=$_GET['will_status'] ?>&sign_status=<?=$_GET['sign_status'] ?>&tag=<?=$_GET['tag']?>&status=<?php echo $_GET['status']; ?>&linkType=<?=$_GET['linkType'];?>&linkDay=<?=$_GET['linkDay'];?>&type=<?=$_GET['type'];?>&sousuo_text=<?=$_GET['sousuo_text'];?>&start_time=<?=$_GET['start_time'];?>&end_time=<?=$_GET['end_time'];?>&isPublic=<?=$_GET['isPublic'];?>&zhuguan=<?=$_GET['zhuguan']?>";
+            var _url="<?php echo base_url(); ?>index.php/customer/menulist/hx_cusMan?&sortType=3&will_status=<?=$_GET['will_status'] ?>&sign_status=<?=$_GET['sign_status'] ?>&tag=<?=$_GET['tag']?>&status=<?php echo $_GET['status']; ?>&linkType=<?=$_GET['linkType'];?>&linkDay=<?=$_GET['linkDay'];?>&type=<?=$_GET['type'];?>&sousuo_text=<?=$_GET['sousuo_text'];?>&start_time=<?=$_GET['start_time'];?>&end_time=<?=$_GET['end_time'];?>&isPublic=<?=$_GET['isPublic'];?>&zhuguan=<?=$_GET['zhuguan']?>";
             $.loadPage(_url);
         });
         var sortType= $("#sortType").val();
@@ -1762,7 +1763,7 @@
         //转入公海
         $("#in_public_customer").click(function(){
             var id=$("#custo_id").val();
-            var _url="<?php echo base_url(); ?>index.php/customer/in_public_customer?&cus_id="+id;
+            var _url="<?php echo base_url(); ?>index.php/customer/hx_in_public_customer?&cus_id="+id;
             $.loadPage(_url);
         });
         $("#in_customer_text").click(function(){
@@ -1772,7 +1773,7 @@
         $("#sousuo").click(function(){
             var type=$("#sousuo_type").val();
             var sousuo_text=$("#text_sousuo").val();
-            var _url= "<?php echo base_url(); ?>index.php/customer/menulist/cusMan?&type="+type+"&will_status=<?=$_GET['will_status'] ?>&sign_status=<?=$_GET['sign_status'] ?>&sousuo_text="+sousuo_text+"&status=<?php echo $_GET['status']; ?>&tag=<?=$_GET['tag'];?>&start_time=<?=$_GET['start_time'];?>&end_time=<?=$_GET['end_time'];?>&linkType=<?=$_GET['linkType'];?>&linkDay=<?=$_GET['linkDay'];?>&sortType=<?=$_GET['sortType']?>&isPublic=<?=$_GET['isPublic'];?>&zhuguan=<?=$_GET['zhuguan']?>";
+            var _url= "<?php echo base_url(); ?>index.php/customer/menulist/hx_cusMan?&type="+type+"&will_status=<?=$_GET['will_status'] ?>&sign_status=<?=$_GET['sign_status'] ?>&sousuo_text="+sousuo_text+"&status=<?php echo $_GET['status']; ?>&tag=<?=$_GET['tag'];?>&start_time=<?=$_GET['start_time'];?>&end_time=<?=$_GET['end_time'];?>&linkType=<?=$_GET['linkType'];?>&linkDay=<?=$_GET['linkDay'];?>&sortType=<?=$_GET['sortType']?>&isPublic=<?=$_GET['isPublic'];?>&zhuguan=<?=$_GET['zhuguan']?>";
             $.loadPage(_url);
         });
 
@@ -1780,7 +1781,7 @@
         $('#sousuo_channel').change(function(){
             // 按来源渠道搜索，暂定 type >= 20 的为按照来源渠道进行搜素
             var type = $(this).val();
-            var _url= "<?php echo base_url(); ?>index.php/customer/menulist/cusMan?&type="+type+"&will_status=<?=$_GET['will_status'] ?>&sign_status=<?=$_GET['sign_status'] ?>&sousuo_text=&status=<?php echo $_GET['status']; ?>&tag=<?=$_GET['tag'];?>&start_time=<?=$_GET['start_time'];?>&end_time=<?=$_GET['end_time'];?>&linkType=<?=$_GET['linkType'];?>&linkDay=<?=$_GET['linkDay'];?>&sortType=<?=$_GET['sortType']?>&isPublic=<?=$_GET['isPublic'];?>&zhuguan=<?=$_GET['zhuguan']?>";
+            var _url= "<?php echo base_url(); ?>index.php/customer/menulist/hx_cusMan?&type="+type+"&will_status=<?=$_GET['will_status'] ?>&sign_status=<?=$_GET['sign_status'] ?>&sousuo_text=&status=<?php echo $_GET['status']; ?>&tag=<?=$_GET['tag'];?>&start_time=<?=$_GET['start_time'];?>&end_time=<?=$_GET['end_time'];?>&linkType=<?=$_GET['linkType'];?>&linkDay=<?=$_GET['linkDay'];?>&sortType=<?=$_GET['sortType']?>&isPublic=<?=$_GET['isPublic'];?>&zhuguan=<?=$_GET['zhuguan']?>";
             $.loadPage(_url);
         });
 
@@ -1914,7 +1915,7 @@ $(document).ready(function() {
         $('.applyBtn').on('click', function(event) {
             var daterangepicker_start= $('input[name="daterangepicker_start"]').val();
             var daterangepicker_end= $('input[name="daterangepicker_end"]').val();
-            var _url= "<?php echo base_url(); ?>index.php/customer/menulist/cusMan?&start_time="+daterangepicker_start+"&end_time="+daterangepicker_end+"&will_status=<?=$_GET['will_status'] ?>&sign_status=<?=$_GET['sign_status'] ?>&type=<?=$_GET['type']?>&sousuo_text=<?=$_GET['sousuo_text'];?>&status=<?php echo $_GET['status']; ?>&linkType=<?=$_GET['linkType'];?>&linkDay=<?=$_GET['linkDay'];?>&sortType=<?=$_GET['sortType']?>&isPublic=<?=$_GET['isPublic'];?>&tag=<?=$_GET['tag'];?>&zhuguan=<?=$_GET['zhuguan']?>";
+            var _url= "<?php echo base_url(); ?>index.php/customer/menulist/hx_cusMan?&start_time="+daterangepicker_start+"&end_time="+daterangepicker_end+"&will_status=<?=$_GET['will_status'] ?>&sign_status=<?=$_GET['sign_status'] ?>&type=<?=$_GET['type']?>&sousuo_text=<?=$_GET['sousuo_text'];?>&status=<?php echo $_GET['status']; ?>&linkType=<?=$_GET['linkType'];?>&linkDay=<?=$_GET['linkDay'];?>&sortType=<?=$_GET['sortType']?>&isPublic=<?=$_GET['isPublic'];?>&tag=<?=$_GET['tag'];?>&zhuguan=<?=$_GET['zhuguan']?>";
             $.loadPage(_url);
         });
         // 全选切换
@@ -2012,7 +2013,7 @@ $(document).ready(function() {
                 var type = $("#sousuo_type").val();
                 var sousuo_text =  user_id;
                 $('#selbyuser').modal('hide');
-                var _url= "<?php echo base_url(); ?>index.php/customer/menulist/cusMan?&type="+type+"&will_status=<?=$_GET['will_status'] ?>&sign_status=<?=$_GET['sign_status'] ?>&sousuo_text="+sousuo_text+"&status=<?php echo $_GET['status']; ?>&tag=<?=$_GET['tag'];?>&start_time=<?=$_GET['start_time'];?>&end_time=<?=$_GET['end_time'];?>&linkType=<?=$_GET['linkType'];?>&linkDay=<?=$_GET['linkDay'];?>&sortType=<?=$_GET['sortType']?>&isPublic=<?=$_GET['isPublic'];?>&zhuguan=<?=$_GET['zhuguan']?>";
+                var _url= "<?php echo base_url(); ?>index.php/customer/menulist/hx_cusMan?&type="+type+"&will_status=<?=$_GET['will_status'] ?>&sign_status=<?=$_GET['sign_status'] ?>&sousuo_text="+sousuo_text+"&status=<?php echo $_GET['status']; ?>&tag=<?=$_GET['tag'];?>&start_time=<?=$_GET['start_time'];?>&end_time=<?=$_GET['end_time'];?>&linkType=<?=$_GET['linkType'];?>&linkDay=<?=$_GET['linkDay'];?>&sortType=<?=$_GET['sortType']?>&isPublic=<?=$_GET['isPublic'];?>&zhuguan=<?=$_GET['zhuguan']?>";
                 $.loadPage(_url);
             }else{
                 showInfo('请勾选您要指定的用户',"error");
