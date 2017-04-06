@@ -56,18 +56,22 @@
                                     </div>
                                 </div> -->
                                  <div class="form-group" style="width:100%;float:left">
-                                     <label class="col-sm-2 control-label">来源渠道</label>
+                                     <label class="col-sm-2 control-label">客户类型</label>
                                      <div class="col-sm-3">
 									<select id="channel_id" class="form-control" name="channel_id" aria-required="true" required="required">
-									<option value="20" selected="selected">销售录入</option>
+									<option value="20" selected="selected">会销客户</option>
 									</select>
                                      </div>
                                      <div class="col-sm-3" style="padding-left:0px;">
 									<select id="channel_id_2" class="form-control help-block m-b-none" name="channel_id_2" aria-invalid="false">
-									<option value="211">会销客户</option>
+									<option value="1001">不限</option>
+									<option value="1002">域名</option>
+									<option value="1003">APP</option>
+									<option value="1004">其他</option>
+									<!-- 因与普通客户区别 此分类id未写入nb_channel 仅记录于nb_customer-->
 									</select>
                                      </div>
-
+									 
                                      <div class="col-sm-3 channel_id_3" style="padding-left:0px;display:none">
                                          <select name="channel_id_3" id="channel_id_3" class="form-control">
                                            

@@ -1507,7 +1507,7 @@ class Customer extends  CI_Controller
         }
         $this->pagination->initialize($config);      //初始化分类页
 
-        
+        $offset=$count;
         $result=$this->customer_model->queryCustomer_sea_hx("",$config['per_page'],$offset,null,
             null,$sortType,$status, $tag,$type,$sousuo_text,$start_time,$end_time,$isPublic,false,"","",false,false,false,$chids);
         $data['customer']= $result->result();

@@ -240,10 +240,12 @@ class Customer_model extends CI_Model{
             $this->db->group_by('nb_customer.id');
         }
 
-		$this->db->where("customer.is_huixiao=0");
+		//$this->db->where("customer.is_huixiao=0");
+		
         $this->db->join('keyword k','customer.keyword_id=k.id','left');//关键词
         $this->db->join('linkman link','customer.linkman_id=link.id','left');
         $this->db->join("custom_position cp","cp.id=link.position_id","left");
+
         $query = $this->db->get('customer');
 
         // echo $this->db->last_query();
@@ -463,7 +465,9 @@ class Customer_model extends CI_Model{
 			$ename=$_GET["sousuo_text2"];
 			$this->db->where('e.name',$ename);
 		}
-		$this->db->where("customer.is_huixiao=0");
+		
+		//$this->db->where("customer.is_huixiao=0");
+		
         $this->db->join('keyword k','customer.keyword_id=k.id','left');//关键词
         $this->db->join('linkman link','customer.linkman_id=link.id','left');
         $this->db->join("custom_position cp","cp.id=link.position_id","left");
@@ -688,7 +692,8 @@ class Customer_model extends CI_Model{
             $this->db->group_by('nb_customer.id');
         }
 
-		$this->db->where("customer.is_huixiao=0");
+		//$this->db->where("customer.is_huixiao=0");
+		
         $this->db->join('keyword k','customer.keyword_id=k.id','left');//关键词
         $this->db->join('linkman link','customer.linkman_id=link.id','left');
         $this->db->join("custom_position cp","cp.id=link.position_id","left");
@@ -931,6 +936,9 @@ class Customer_model extends CI_Model{
 		$this->db->join("employee e","e.user_id=u.id","left");
 		
 		$this->db->join("department d","d.id=e.department_no","left");
+		
+		//$this->db->limit(0, 100);
+		
         $query = $this->db->get('customer');
 		//$query = $this->db->select('*');
          //echo $this->db->last_query();
@@ -938,7 +946,7 @@ class Customer_model extends CI_Model{
 
 
         // echo $this->db->last_query();
-        // // die;
+        // die;
 
         return $query;
     }
@@ -1135,10 +1143,10 @@ class Customer_model extends CI_Model{
         }
 
         //分页
-        if($size && $offset||$offset==0){
-            $this->db->limit($size,$offset);
-        }
-
+        //if($size && $offset||$offset==0){
+         //   $this->db->limit($size,$offset);
+       // }
+		
         // @zzr edit at 2016-12-20 10:08 来源渠道组合查询条件
         if(!empty($chids)){
             $chids = trim($chids,',');
@@ -1155,6 +1163,7 @@ class Customer_model extends CI_Model{
         }
 
 		$this->db->where("customer.is_huixiao=1");
+		
         $this->db->join('keyword k','customer.keyword_id=k.id','left');//关键词
         $this->db->join('linkman link','customer.linkman_id=link.id','left');
         $this->db->join("custom_position cp","cp.id=link.position_id","left");
@@ -1164,14 +1173,26 @@ class Customer_model extends CI_Model{
 		$this->db->join("employee e","e.user_id=u.id","left");
 		
 		$this->db->join("department d","d.id=e.department_no","left");
+		
+		//$b=$offset;
+		
+		//if($offset>100){
+		////	$rand=rand(100,$offset);
+		//	$b=$rand-100;
+		//	$this->db->limit($b,$rand);			
+		//}
+		
+		$this->db->limit(100,0);
+		
+		
         $query = $this->db->get('customer');
 		//$query = $this->db->select('*');
          //echo $this->db->last_query();
          //die;		
 
 
-        // echo $this->db->last_query();
-        // // die;
+       // echo $this->db->last_query();
+    //  die;
 
         return $query;
     }

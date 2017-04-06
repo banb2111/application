@@ -10,8 +10,9 @@
                     <!-- Example Events -->
                     <div class="example-wrap">
                         <h4 class="example-title">公海客户</h4>
-						<span style="color:green">(后期可能会随机
-						取出100条，目前一条也没有没办法取，若改动会详细描述使用方式)</span>
+						<!--点击显示100条公海客户
+						<span class="glyphicon glyphicon-search form-control-feedback cp" id="sousuo2" style="pointer-events:auto;" aria-hidden="true"></span>
+						--><span style="color:green">(您看到的会销公海默认最多显示100条)</span>
                         <div class="example">
                             <div class="alert alert-success hide" id="examplebtTableEventsResult" role="alert">
                                 事件结果
@@ -174,14 +175,14 @@
                                     <?php }?>
                                 </table>
                             </div>
-                            <div class="page">
+                            <!--<div class="page">
                                 <?php echo $pages;?>
                                 <?php if(!empty($pages)){?>
                                     <input type="text" value="" class="tonumpage" style="text-align:center;margin-left:10px;width:40px;height:30px;border-radius:5px;border:1px solid #ccc;">
                                     <a id="tonumpage" title="跳转到指定页" data-href="" data-ci-pagination-page="">跳转</a>
                                 <?php } ?>
 
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                     <!-- End Example Events -->

@@ -32,7 +32,6 @@ class Users extends  CI_Controller{
 			//echo $this->db->last_query();
 			$customerData2= $query->result();
 			$department_no=$customerData2[0]->department_no;
-			if($department_no==24||$department_no==29||$department_no==-1){
 				$data['huixiao']=1;
 			}
 			//var_dump($customerData2[0]->department_no);			

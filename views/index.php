@@ -74,6 +74,12 @@
 						<li><a href="javascript:void(0);" data-href="<?=base_url();?>index.php/customer/menulist/add_customer">
 						<?php //var_dump($user_id=$_SESSION['user_id']->id);
 						?>添加客户<b></b></a></li>
+						
+						<?php if($huixiao){ ?>
+						<li><a href="javascript:void(0);" data-href="<?=base_url();?>index.php/customer/menulist/hx_add_customer">
+							添加会销客户<b></b></a></li>
+						<?php }	?>		
+							
 						<li><a href="javascript:void(0);" data-href="<?=base_url();?>index.php/customer/menulist/cusMan">我的客户<b></b></a></li>
 
 						<?php if($is_zhuguan){ ?>
@@ -93,6 +99,13 @@
 							<li><a href="javascript:void(0);" data-href="<?=base_url();?>index.php/customer/want_topublic">即将调入公海客户<b></b></a></li>
 						<?php } ?>
 						<li><a href="javascript:void(0);" data-href="<?=base_url();?>index.php/customer/menulist/public_customer?isPublic=1">公海客户<b></b></a></li>
+						
+						
+						<?php if($huixiao){ ?>
+						<li><a href="javascript:void(0);" data-href="<?=base_url();?>index.php/customer/menulist/hx_public_customer?isPublic=1">会销公海客户<b></b></a></li>
+						<?php }	?>		
+						
+						
 						<li><a href="javascript:void(0);" data-href="<?=base_url();?>index.php/customer/menulist/cusMan?&linkType=1&linkDay=0">未联系客户<b></b></a></li>
 						<li><a href="javascript:void(0);" data-href="<?=base_url();?>index.php/customer/menulist/cusMan?&linkType=3&linkDay=0">今日已联系客户<b></b></a></li>
 						<li><a href="javascript:void(0);" data-href="<?=base_url();?>index.php/customer/menulist/cusMan?&linkType=2&linkDay=0">今日待联系客户<b></b></a></li>
@@ -101,13 +114,14 @@
 						<li><a href="javascript:void(0);" data-href="<?=base_url();?>index.php/customer/menulist/cusMan?&linkType=2&linkDay=5">5日内待联系<b></b></a></li>
 					</ul>
 					</li>
-						<?php if($huixiao){ ?>
+						<?php if($huixiao_unuse){ ?>
 						<li>	
 						<div class="link"><!-- <i class="fa fa-paint-brush"></i> -->会销客户管理<i class="fa fa-chevron-down"></i></div>
 							<ul class="submenu pl">
 							<li><a href="javascript:void(0);" data-href="<?=base_url();?>index.php/customer/menulist/hx_add_customer">
 							添加会销客户<b></b></a></li>
-							<li><a href="javascript:void(0);" data-href="<?=base_url();?>index.php/customer/menulist/hx_cusMan">我的会销客户<b></b></a></li>
+							<!--<li><a href="javascript:void(0);" data-href="<?=base_url();?>index.php/customer/menulist/hx_cusMan">我的会销客户<b></b></a></li>
+							-->
 							<li><a href="javascript:void(0);" data-href="<?=base_url();?>index.php/customer/menulist/hx_public_customer?isPublic=1">会销公海客户<b></b></a></li>
 							</ul>	
 						</li>		
